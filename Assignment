@@ -1,0 +1,45 @@
+CPT 237 JAVA PROGRAMMING
+
+Assignment 3 – Acme Taxi Co. upgrade-B
+
+Donna was pleased with your last program.  She still wants more changes, of course.  Again, part of the modifications are to the 
+UI, part to the cab itself.  For the user interface, Donna wants two JFrames, one that presents the Cab driver’s console, the 
+other that presents the ‘management’ console (i.e. what Donna wants to see).  The cab driver should see the options to record 
+fares, add gas, report gas available, report miles available and service the vehicle.  The management console should provide the 
+ability to report net earnings, report gross earnings, see total miles driven and reset the above.  Closing the either JFrame 
+will end the program.
+
+For this program, performing service on the cab becomes more important.  Donna wants the cabs to be service every 500 miles. 
+She has specified that this be done by disallowing a new fare if the miles since the last service exceeds 500.  The cab will 
+accept fares if the 500 miles has not been met, even if the fare will push it over the limit.  For example, if there have been 
+495 miles since the previous service, the cab will allow a 10 mile fare (assuming there is enough gas).  However, it will not 
+allow a subsequent fare since the miles would then be at 510.
+
+Donna wants both the driver and the management console to know when the 500 mile limit has been reached and when it has been 
+serviced.  This should be accomplished using a Java interface that you create called MaintenanceListener.  The interface should 
+have at least one method (and perhaps two, depending on your implementation).  The cab should have an addMaintenanceListener 
+method which accepts a MaintenanceListener as its argument.  It will place the listener into a list.  When the cab needs service 
+(or is serviced) it should notify the MaintenanceListeners which have registered with the object.  Additionally, the cab should
+not accept any more fares until the service button is pushed.  This should be prohibited in the cab object, not the driver’s UI.
+Both the management console and the cab console should register themselves with the cab.  When the taxi has exceeded 500 miles 
+both consoles should report "maintenance needed".  When the service button is pushed, the “maintenance needed” message should go 
+away.  Be careful not to assume that you simple toggle the state in the UI.  The cabby could decide to service the cab prior to 
+the time maintenance is actually needed.  Instead, the MaintenanceListener should either have two methods, one for indicating
+maintenance is needed, on indicating maintenance has been performed, or a single method that has a parameter indicating whether
+maintenance is needed or performed.
+
+Donna is a little concerned about the taxi refusing to accept any fare when the maintenance limit is reached.  What if the 
+client is one of the city council members?  Therefore, she wants the management UI to have an override button that tells the 
+Cab object to allow a single fare to be accepted even though the limit has been reached.  (She should be allowed to use this 
+button multiple times; each time will permit a single fare.)  This button should appear ONLY on the management UI; she wants 
+to avoid its abuse.  She didn’t mention it, but I’m certain Donna would be impressed if the button is enabled only if the cab 
+needs maintenance.
+
+In order to place the “maintenance needed” message on the screen, each console needs to register some object that can respond 
+to the maintenance messages.  This object should implement a MaintenanceListener interface (which you will design).  Do not 
+‘poll’ the object to determine that it needs maintenance.
+
+Your main method will need to instantiate a minimum of three classes.  One object to represent the cab, one to display the cab
+driver console, one to display the management console.  The same cab object should be passed to each of the console objects.
+You may start with last week’s extended cab class.  You do not need to create yet another derived class.  Simply modify last 
+week’s classes to handle the new functionality (and create the second UI class, of course).
